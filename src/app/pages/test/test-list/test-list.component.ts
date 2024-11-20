@@ -13,6 +13,8 @@ import { MatDialog, MatDialogActions } from '@angular/material/dialog';
 import { TestFormAddComponent } from '../test-form-add/test-form-add.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AlertService } from '../../../services/alert/alert.service';
+import { TestFormUpdateComponent } from '../test-form-update/test-form-update.component';
+import test from 'node:test';
 
 export interface Test {
   id: number;
@@ -104,6 +106,17 @@ export class TestListComponent implements OnInit, AfterViewInit{
         }
       }
     )
+  }
+
+  openedUpdateDialog(id: number): void {
+    const dataToEdit = this.dataSource.data.find(test => test.id === id);
+    if(dataToEdit){
+      const dialogRef = this.dialog.open(TestFormUpdateComponent, {
+        width: '500px',
+        data: dataToEdit
+      })
+    }
+   
   }
 
 }

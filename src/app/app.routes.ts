@@ -7,15 +7,16 @@ import { ProjectListComponent } from './pages/project/project-list/project-list.
 import { EmployeeComponent } from './pages/employee/employee/employee.component';
 import { AsigmentListComponent } from './pages/asigment/asigment-list/asigment-list.component';
 import { TestListComponent } from './pages/test/test-list/test-list.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {path: '', pathMatch: 'full', redirectTo: 'home'},
     {path: 'home', component: HomeComponent},
-    {path: 'dashboard', component: DashboardComponent},
+    {path: 'dashboard', component: DashboardComponent, canActivate: [authGuard]},
     {path: 'content', component: ContentComponent},
     {path: 'department', component: DepartmentListComponent},
     {path: 'projects', component: ProjectListComponent},
     {path: 'employee', component: EmployeeComponent},
-    {path: 'assigment', component: AsigmentListComponent},
+    {path: 'assigment', component: AsigmentListComponent, canActivate: [authGuard]},
     {path: 'test', component: TestListComponent}
 ];

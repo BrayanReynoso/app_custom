@@ -1,1 +1,11 @@
-<h1>Home</h1>
+<div *ngIf="isLoggedIn(); else loginTemplate">
+    <!-- Mostrar el botón de logout si el usuario está logueado -->
+    <h1>Bienvenido</h1>
+    <button (click)="logout()">Logout</button>
+  </div>
+  
+  <ng-template #loginTemplate>
+    <!-- Mostrar el botón de login si el usuario no está logueado -->
+    <h1>Bienvenido, por favor inicia sesión</h1>
+    <button (click)="login()">Acceder</button>
+  </ng-template>
