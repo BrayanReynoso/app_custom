@@ -1,0 +1,19 @@
+<div class="sidenav-header">
+    <img src="https://www.gstatic.com/webp/gallery/1.jpg" [width]="profilePicSize()" [height]="profilePicSize()" alt="Logo">
+    <div class="header-text" [class.hide-header-text]="sideNavCollapsed()">
+        <h2>Your Channel</h2>
+        <p>Brayan Reynoso Macedo</p>
+    </div>
+</div>
+<mat-nav-list >
+    <a class="menu-item" mat-list-item *ngFor="let item of menuItems()" [routerLink]="item.route"
+        routerLinkActive="selected-menu-item"
+        #rla="routerLinkActive"
+        [activated]="rla.isActive"
+    >
+        <mat-icon [fontSet]="rla.isActive ? 'material-icons': 'material-icons-outlined'" matListItemIcon >{{ item.icon }}</mat-icon>
+        <span *ngIf="!sideNavCollapsed()" matListItemTitle >{{item.label}}</span>
+    </a>
+
+</mat-nav-list>
+

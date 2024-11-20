@@ -1,0 +1,25 @@
+.dialog-content {
+    min-height: 400px;
+}
+
+.dialog-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .full-width {
+        width: 100%;
+    }
+}
+
+mat-dialog-actions{
+    padding: 16px;
+}
+
+.dialog-title {
+    text-align: center;
+    margin: 0;
+    margin-top: 10px;
+    font-size: 24px;
+    color: var(--secondary-color);
+}

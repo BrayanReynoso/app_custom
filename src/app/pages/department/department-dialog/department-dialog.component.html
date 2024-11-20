@@ -1,0 +1,45 @@
+<h2 mat-dialog-title class="dialog-title">Registrar Departamento</h2>
+<mat-dialog-content class="dialog-content mat-typography">
+  <form class="dialog-form" [formGroup]="departmentForm">
+    <!-- Campo Nombre -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nombre del Departamento</mat-label>
+      <input matInput placeholder="Ej. Ventas" formControlName="name" required />
+      <mat-error *ngIf="departmentForm.get('name')?.hasError('required') ">
+        El nombre es obligatorio.
+      </mat-error>
+      <mat-error *ngIf="departmentForm.get('name')?.hasError('minlength')">
+        El nombre debe tener al menos 3 caracteres.
+      </mat-error>
+    </mat-form-field>
+  
+    <!-- Campo Descripción -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput rows="3" placeholder="Ej. Área encargada de ventas y clientes" formControlName="description"></textarea>
+      <mat-error *ngIf="departmentForm.get('description')?.hasError('required')">
+        La descripción es obligatoria.
+      </mat-error>
+      <mat-error *ngIf="departmentForm.get('description')?.hasError('maxLength')">
+        La descripción no puede exceder los 255 caracteres.
+      </mat-error>
+    </mat-form-field>
+  
+    <!-- Campo Estado -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="status" required>
+        <mat-option value="activo">Activo</mat-option>
+        <mat-option value="inactivo">Inactivo</mat-option>
+      </mat-select>
+      <mat-error *ngIf="departmentForm.get('status')?.hasError('required')">
+        Selecciona un estado.
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" cdkFocusInitial (click)="onSubmit()">Guardar</button>
+</mat-dialog-actions>

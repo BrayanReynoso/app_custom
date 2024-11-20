@@ -1,0 +1,50 @@
+<h2 mat-dialog-title class="dialog-title">Actualizar Proyecto</h2>
+<mat-dialog-content class="dialog-content mat-typography">
+    <form class="dialog-form" [formGroup]="projectForm">
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nombre del proyecto</mat-label>
+            <input matInput formControlName="name" placeholder="Ej. Diseño" required>
+            <mat-error *ngIf="projectForm.get('name')?.hasError('required') && projectForm.get('name')?.touched">El nombre es obligatorio.</mat-error>
+            <mat-error *ngIf="projectForm.get('name')?.hasError('minlength')">El nombre debe tener al menos 3 caracteres.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Descripción del proyecto</mat-label>
+            <textarea matInput formControlName="description" placeholder="Ej. Diseño" required></textarea>
+            <mat-error *ngIf="projectForm.get('description')?.hasError('required') && projectForm.get('description')?.touched">La descripción es obligatoria.</mat-error>
+            <mat-error *ngIf="projectForm.get('description')?.hasError('minlength')">La descripcion debe tener almenos 3 caracteres.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Fecha de inicio</mat-label>
+            <input matInput type="date"  formControlName="startDate" required>
+            <mat-error *ngIf="projectForm.get('startDate')?.hasError('requiered')">
+                La fecha de inicio es obligatoria.
+            </mat-error>
+            <mat-error *ngIf="projectForm.get('startDate')?.hasError('min')">
+                La fecha de inicio no puede ser mayor a la fecha de fin.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Fecha de fin</mat-label>
+            <input matInput type="date" formControlName="endDate" required>
+            <mat-error *ngIf="projectForm.get('endDate')?.hasError('required')">
+                La fecha de fin es obligatoria.
+            </mat-error>
+            <mat-error *ngIf="projectForm.get('endDate')?.hasError('min')">
+                La fecha de fin no puede ser menor a la fecha de inicio.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="status" required>
+                <mat-option value="activo">Activo</mat-option>
+                <mat-option value="inactivo">Inactivo</mat-option>
+            </mat-select>
+            <mat-error *ngIf="projectForm.get('status')?.hasError('required') && projectForm.get('status')?.touched">Selecciona un estado.</mat-error>
+        </mat-form-field>
+
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onClose()" >Cancelar</button>
+    <button mat-button (click)="onSubmit()" cdkFocusInitial>Actualizar</button>
+</mat-dialog-actions>

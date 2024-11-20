@@ -1,0 +1,9 @@
+<div class="container-alert">
+  <div class="snackbar-content" [ngClass]="data.type">
+    <mat-icon *ngIf="data.type === 'success'" class="snackbar-icon">check_circle</mat-icon>
+    <mat-icon *ngIf="data.type === 'error'" class="snackbar-icon">error</mat-icon>
+    <mat-icon *ngIf="data.type === 'warning'" class="snackbar-icon">warning</mat-icon>
+    <mat-icon *ngIf="data.type === 'info'" class="snackbar-icon">info</mat-icon>
+    <span>{{ data.message }}</span>
+  </div>
+</div>

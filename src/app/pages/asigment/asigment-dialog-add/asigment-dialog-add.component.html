@@ -1,0 +1,51 @@
+<h2 mat-dialog-title class="dialog-title">Registrar una asignacion</h2>
+<mat-dialog-content class="dialog-content mat-typography">
+    <form class="dialog-form" [formGroup]="assigmentForm">
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Role</mat-label>
+            <input matInput placeholder="Ej." formControlName="role" type="text" required>
+            <mat-error *ngIf="assigmentForm.get('role')?.hasError('required') && assigmentForm.get('role')?.touched">
+                El role es obligatorio.
+            </mat-error>
+            <mat-error *ngIf="assigmentForm.get('role')?.hasError('minlength')">
+                El role debe tener al menos 3 caracteres.
+            </mat-error>
+            <mat-error *ngIf="assigmentForm.get('role')?.hasError('maxlength')">
+                El role no puede tener mas de 50 caracteres.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Fecha de Asignacion</mat-label>
+            <input matInput type="date" formControlName="assignmentDate" required>
+            <mat-error
+                *ngIf="assigmentForm.get('assignmentDate')?.hasError('required') && assigmentForm.get('assignmentDate')?.touched">
+                La fecha de asignación es obligatoria.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Asignar empleado</mat-label>
+            <mat-select formControlName="employee">
+                <mat-option *ngFor="let employee of employees" [value]="employee.id">
+                    {{ employee.firstName + ' ' + employee.lastName }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+         <!-- 
+        
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Asignar departamento</mat-label>
+            <mat-select formControlName="department">
+                <mat-option *ngFor="let department of departments" [value]="department.id">
+                    {{ department.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+          -->
+       
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onClose()">Cancelar</button>
+    <button mat-button (click)="onSubmit()" cdkFocusInitial>Registrar</button>
+</mat-dialog-actions>

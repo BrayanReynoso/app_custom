@@ -1,0 +1,38 @@
+<h2 mat-dialog-title class="dialog-title">Registrar nuevo departamento</h2>
+<mat-dialog-content class="dialog-content mat-typography">
+    <form class="dialog-form" [formGroup]="departmentAddForm">
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nombre del departamento</mat-label>
+            <input matInput placeholder="Ej. Ventas" formControlName="name" required />
+            <mat-error *ngIf="departmentAddForm.get('name')?.hasError('required')">El nombre es obligatorio.</mat-error>
+            <mat-error *ngIf="departmentAddForm.get('name')?.hasError('minlength')">El nombre debe tener al menos 3
+                caracteres.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Descripción del departamento</mat-label>
+            <textarea matInput placeholder="Ej. Departamento de recursos humanis" formControlName="description" required=""
+                type="text"></textarea>
+            <mat-error *ngIf="departmentAddForm.get('description')?.hasError('required')">La descripcion es
+                obligatoria.</mat-error>
+            <mat-error
+                *ngIf="departmentAddForm.get('description')?.invalid && departmentAddForm.get('description')?.touched">
+                La descripcion debe tener al menos 3 caracteres.
+            </mat-error>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">
+        <mat-icon>
+            close
+        </mat-icon>
+        Cancelar
+    </button>
+    <button mat-raised-button (click)="onSubmit()">
+        <mat-icon>
+            save
+        </mat-icon>
+        Guardar
+    </button>
+</mat-dialog-actions>

@@ -1,0 +1,99 @@
+<div class="table-container mat-elevation-z8">
+    <h2 class="table-title">Lista de proyectos</h2>
+    <div class="sub-header">
+        <mat-form-field>
+            <mat-label>Buscar</mat-label>
+            <mat-label>Buscar</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Rediseño web" #input>
+        </mat-form-field>
+        <button class="btn-add" mat-raised-button (click)="registerProject()">Agregar proyecto</button>
+
+    </div>
+    <div class="mat-elevation-z8">
+        <div class="mat-elevation-z8" *ngIf="isLoading">
+            <mat-progress-spinner mode="indeterminate" diameter="50" color="accent"
+                class="loading-spinner"></mat-progress-spinner>
+        </div>
+        <div class="table-wrapper">
+            <table mat-table [dataSource]="dataSource" matSort>
+                <!-- Columnas de la tabla -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+                    <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td> <!-- Aquí se usa el índice -->
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                    <td mat-cell *matCellDef="let row">{{ row.name  }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
+                    <td mat-cell *matCellDef="let row">{{ row.description }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="startDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de inicio</th>
+                    <td mat-cell *matCellDef="let row">{{ row.startDate | date }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="endDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de fin</th>
+                    <td mat-cell *matCellDef="let row">{{ row.endDate | date }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="budget">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Presupuesto</th>
+                    <td mat-cell *matCellDef="let row">{{ row.budget | currency }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="assignments">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Asignaciones</th>
+                    <td mat-cell *matCellDef="let row">
+                        <ng-container *ngIf="row.assignments.length > 0; else noAssignments">
+                            <div *ngFor="let assignment of row.assignments">
+                                {{ assignment.employee.firstName }} {{ assignment.employee.lastName }}
+                            </div>
+                        </ng-container>
+                        <ng-template #noAssignments>
+                            No asignado
+                        </ng-template>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+                    <td mat-cell *matCellDef="let row">
+                        <span [ngClass]="{
+                          'badge-active': row.status,
+                          'badge-inactive': !row.status
+                      }">
+                            {{ row.status ? 'Activo' : 'Inactivo' }}
+                        </span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                    <td mat-cell *matCellDef="let row">
+                        <div class="actions-container">
+                            <button class="btn-edit" mat-icon-button (click)="updateProject(row.id)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button class="btn-delete" mat-icon-button (click)="changeStatusProjectById(row.id)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr class="mat-row" *matNoDataRow="">
+                    <td class="mat-cell" colspan="6">No se encontraron proyectos con: "{{input.value}}"</td>
+                </tr>
+            </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" aria-label="Selecciona una pagina"></mat-paginator>
+    </div>
+</div>
